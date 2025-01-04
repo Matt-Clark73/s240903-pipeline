@@ -55,10 +55,8 @@ def download_dataset():
     # Load dataset
     try:
         soil_data = pd.read_csv(new_path)
-
         # Convert csv to JSON
         json_data = soil_data.to_dict(orient='records')
-
         # Function to convert ObjectId to string
         def convert_objectid_to_str(data):
             for item in data:
@@ -66,10 +64,9 @@ def download_dataset():
                     if isinstance(value, ObjectId):
                         item[key] = str(value)
             return data
-
         # Convert any ObjectId to string
         json_data = convert_objectid_to_str(json_data)
-
+        
         # MongoDB connection
         client = MongoClient("mongodb://localhost:27017/") 
         db = client["agriculture_db"]  
